@@ -1,0 +1,106 @@
+Angular and Spring web Integration
+	whenever we create a spring rest controller, we may choose jar itself. "web" is required only when we create MVC project. In MVC project, we create FRONT end also (jsp/html). If we use html in spring boot, then "thymeleaf" framework is used.
+
+	Since we are not creating front end using spring, we may choose .jar itself
+
+Front end:
+	Observable
+	subscribe
+
+our angular service methods, returned Observable.
+so when we called these service methods from component, we subscribed.
+
+How to create observable?	we use an angular module "rxjs"
+	Reactive eXtension for Java Script
+
+	IMO returns the data in async manner
+i subscribe and do not wait.
+
+the publisher and the subscriber do not know each other (or they are not always connected)
+
+many people subscribe. ONce the observable publishes, then those who all have subscribed
+get the data
+
+what is the method to subscribe?
+	subscribe()
+what is the method to publish?
+	next()
+
+A method receives observable should subscribe
+
+when we create observable manually, we intentionally give some delay (millis)
+we use next() method to publish
+
+all subscibe methods will get the data published by the observable
+
+===================================
+Remember i used bootstrap in index.html page
+
+angular has some support for bootstrap
+
+in cmd prompt:
+npm install bootstrap jquery --save
+
+angular.json file:
+------------------
+"styles": [
+  "src/styles.css",
+  "node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+"scripts": [
+  "node_modules/jquery/dist/jquery.min.js",
+  "node_modules/bootstrap/dist/js/bootstrap.min.js"
+]
+--------------------------------
+If bootstrap.min.css won't work then 
+import this bootstrap.min.css in a style.css file like this:
+/* You can add global styles to this file, and also import other style files */
+
+@import url(https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css)
+
+
+
+---------------------------
+Task:
+	create a method in service.ts
+the method should return observable
+the observable has a lambda implementation of method with argument observer
+observer.next()		is the method to publish data
+publish the data with a delay of few milliseconds
+use setTimeout to achieve this
+
+call this method from a component and subscribe
+observe that the subscribe method arg (call back method) is called in async manner
+
+
+    var subscription=this.us.method1().subscribe((data)=>{
+      console.log(data);
+    });
+    
+    subscription.unsubscribe();
+
+---------------
+CORS
+	Cross Origin Resourse Sharing
+
+@CrossOrigin(origins="*")
+
+
+----------------------------------
+In rest controllers, there is no session management. Every method call is independent
+In Controller, session management is there. So we can check if session.getAttribute("user")==null then you have not logged in. etc
+
+But in rest controller? no session is persistent across method calls
+
+To address this,
+	Spring security is used
+in angular, 
+	JWT  	json web token is used
+
+But we do not have this in our syllabus
+
+So today, when we are learning angular + spring integration
+we need to find a technique for login validation and session management
+when user directly visits pages, using URL, in angular, how do we find if he has logged in or not?
+if he has logged in, until he logout, he should be allowed to access any resource/page
+
